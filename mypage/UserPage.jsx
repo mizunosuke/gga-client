@@ -11,13 +11,6 @@ export const UserPage = (props) => {
 
     const navigation = useNavigation();
 
-    //follow状態をとってくる
-    const fetchFollow = async(id) => {
-        const res = await axios.get(`https://cd53-2404-7a87-662-1500-694a-cc60-562f-ff70.ngrok-free.app/api/users/${id}/follow`);
-        console.log(res.data);
-        setIsFollowing(res.data.follow);
-    }
-
     const route = useRoute();
     const { user } = route.params;
     console.log(user);
@@ -27,15 +20,25 @@ export const UserPage = (props) => {
     //フォロー関係の処理
     const [ isFollowing, setIsFollowing ] = useState(false);
 
+    //follow状態をとってくる
+    const fetchFollow = async(id) => {
+        const res = await axios.get(`https://cd53-2404-7a87-662-1500-694a-cc60-562f-ff70.ngrok-free.app/api/users/${id}/follow`, {
+            params: {
+                currentUserId: currentUser.id
+            }
+        });
+        console.log(res.data);
+        setIsFollowing(res.data.follow);
+    }
+
+
+
     const followUser = async(id) => {
-        setIsFollowing(!isFollowing)
-        axios.post(`https://cd53-2404-7a87-662-1500-694a-cc60-562f-ff70.ngrok-free.app/api/users/${id}/follow`, {
+        const res = await axios.post(`https://cd53-2404-7a87-662-1500-694a-cc60-562f-ff70.ngrok-free.app/api/users/${id}/follow`, {
             id: currentUser.id,
-        })
-        .then((res) => {
-            console.log(res);
-            setIsFollowing(true);
-        })
+        });
+        console.log(res);
+        setIsFollowing(true);
       }
 
     const unfollowUser = async(id) => {
@@ -66,7 +69,7 @@ export const UserPage = (props) => {
         <View style={styles.container}>
             <View style={styles.header}>
                 <View style={styles.profileImageContainer}>
-                    <Ionicons name="person-circle-outline" size={80} color="#333"/>
+                {user.icon_path ? (<Avatar.Image source={{uri: user.icon_path}} size={120} color="#333" style={{alignSelf: "center"}}/>) : (<Ionicons name="person-circle-outline" size={80} color="#333" style={{alignSelf: "center"}}/>)}
                 </View>
                 <Text style={styles.profileName}>{user.name}</Text>
                 <Text style={styles.profileUsername}>@johnsmith</Text>

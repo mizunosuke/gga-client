@@ -17,6 +17,7 @@ export const RankingDetail = (props) => {
   const [ detailData, setDetailData ] = React.useState([]);
 
 
+
   //投稿データ取得
   const fetchDetailData = async(id) => {
     const res = await axios.get(`https://cd53-2404-7a87-662-1500-694a-cc60-562f-ff70.ngrok-free.app/api/posts/${id}`);
@@ -34,12 +35,30 @@ export const RankingDetail = (props) => {
     })
   }
 
+  //ユーザーページ移動
+  const showUser = (user) => {
+    navigation.navigate("UserPage", {
+      user: user
+    })
+  }
+
   React.useEffect(() => {
     fetchDetailData(fish_id);
   }, []);
 
 
   const RankingCard= (item) => {
+    const titleData = [
+      require("../../assets/title1.png"),
+      require("../../assets/title2.png"),
+      require("../../assets/title3.png")
+    ];
+
+    
+    
+    const randomTitle = titleData[Math.floor(Math.random() * titleData.length)];
+
+    const randomNum = Math.floor(Math.random() * 100) + 1;
     return (
       <View style={styles.container}>
         <View style={styles.king}>
@@ -59,14 +78,20 @@ export const RankingDetail = (props) => {
                 <SimpleLineIcons name="badge" size={20} color="blue" style={{
                   alignSelf: "center"
                 }}/>
-                <Text style={styles.kingAboutText}>獲得した称号</Text>
+                <Image source={randomTitle} style={{
+                  width: 100,
+                  height: 100,
+                  position: "absolute",
+                  top: -63,
+                  left: 32
+                }}/>
               </View>
 
               <View style={styles.point}>
                 <FontAwesome5 name="parking" size={20} color="blue" style={{
                   alignSelf: "center"
                 }}/>
-                {item.point ? (<Text style={styles.kingAboutText}>{item.points}</Text>) : (<Text style={styles.kingAboutText}>0pt</Text>)}
+                {item.point ? (<Text style={styles.kingAboutText}>{item.points}</Text>) : (<Text style={styles.kingAboutText}>{randomNum}pt</Text>)}
               </View>
 
               <View style={styles.point}>
@@ -78,10 +103,12 @@ export const RankingDetail = (props) => {
             </View>
 
             <View style={styles.userName}>
+              <TouchableOpacity onPress={() => showUser(item.user)} style={{flexDirection: "row"}}>
                 <Feather name="user" size={20} color="blue" style={{
                   alignSelf: "center"
                 }}/>
                 <Text style={styles.kingAboutText}>{item.user.name}</Text>
+              </TouchableOpacity>
             </View>
 
             <View style={styles.comment}>

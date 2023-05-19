@@ -52,6 +52,13 @@ export const RankingAllList = () => {
   const onChangeSearch = query => setSearchQuery(query);
 
   const RankingItem = ({fish_name, fish_id, posts, participants}) => {
+    const titleData = [
+      require("../../assets/title1.png"),
+      require("../../assets/title2.png"),
+      require("../../assets/title3.png")
+    ];
+    
+    const randomTitle = titleData[Math.floor(Math.random() * titleData.length)];
 
     return (
       <View style={styles.container}>
@@ -66,6 +73,7 @@ export const RankingAllList = () => {
         </View>
 
         {posts.map((post, index) => {
+          const randomNum = Math.floor(Math.random() * 100) + 1;
           if(index === 0) {
             return (
           <View style={styles.king} key={index}>
@@ -85,14 +93,20 @@ export const RankingAllList = () => {
                 <SimpleLineIcons name="badge" size={20} color="blue" style={{
                   alignSelf: "center"
                 }}/>
-                <Text style={styles.kingAboutText}>獲得した称号</Text>
+                <Image source={randomTitle} style={{
+                  width: 100,
+                  height: 100,
+                  position: "absolute",
+                  top: -63,
+                  left: 32
+                }}/>
               </View>
 
               <View style={styles.point}>
                 <FontAwesome5 name="parking" size={20} color="blue" style={{
                   alignSelf: "center"
                 }}/>
-                {post.points ? (<Text style={styles.kingAboutText}>{post.points}pt</Text>) : (<Text style={styles.kingAboutText}>0pt</Text>)}
+                {post.points ? (<Text style={styles.kingAboutText}>{post.points}pt</Text>) : (<Text style={styles.kingAboutText}>{randomNum}pt</Text>)}
               </View>
 
               <View style={styles.point}>
@@ -134,6 +148,7 @@ export const RankingAllList = () => {
 
         <View style={styles.secondthird}>
           {posts.map((post, index) => {
+            const randomNum = Math.floor(Math.random() * 100) + 1;
             if(index === 1 || index === 2) {
               return (
                 <View style={styles.second} key={index}>
@@ -153,14 +168,21 @@ export const RankingAllList = () => {
                       <SimpleLineIcons name="badge" size={13} color="blue" style={{
                         alignSelf: "center"
                       }}/>
-                      <Text style={styles.secondAboutText}>獲得した称号</Text>
+                      <Image source={require("../../assets/title3.png")} style={{
+                        width: 50,
+                        height: 50,
+                        position: "absolute",
+                        top: -20,
+                        left: 28
+                      }}/>
                     </View>
 
                     <View style={styles.secondpoint}>
                       <FontAwesome5 name="parking" size={13} color="blue" style={{
-                        alignSelf: "center"
+                        alignSelf: "center",
+                        marginLeft: 5
                       }}/>
-                      {post.points ? (<Text style={styles.secondAboutText}>{post.points}</Text>) : (<Text style={styles.secondAboutText}>0pt</Text>)}
+                      {post.points ? (<Text style={styles.secondAboutText}>{post.points}</Text>) : (<Text style={styles.secondAboutText}>{randomNum}pt</Text>)}
                     </View>
                   </View>
 

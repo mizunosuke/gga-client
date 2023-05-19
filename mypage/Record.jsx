@@ -17,7 +17,7 @@ import { FontAwesome } from '@expo/vector-icons';
 const DATA = [
   {
     id: '1',
-    image: require('../assets/cardback.png'),
+    image: require('../assets/IMG_5681.jpeg'),
     rank: '1 / 10',
     period: '2022/04/01 - 2022/04/07',
     size: 50,
@@ -27,7 +27,7 @@ const DATA = [
   },
   {
     id: '2',
-    image: require('../assets/cardback.png'),
+    image: require('../assets/IMG_5747.JPG'),
     rank: '3 / 10',
     period: '2022/03/25 - 2022/03/31',
     size: 35,
@@ -37,7 +37,7 @@ const DATA = [
   },
   {
     id: '3',
-    image: require('../assets/cardback.png'),
+    image: require('../assets/IMG_5777.jpeg'),
     rank: '2 / 10',
     period: '2022/03/18 - 2022/03/24',
     size: 70,
